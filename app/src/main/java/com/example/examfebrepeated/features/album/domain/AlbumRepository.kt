@@ -6,6 +6,7 @@ interface AlbumRepository {
     suspend fun getAlbumList(): List<Album>
     suspend fun getAlbumById(albumId: String): Album?
     suspend fun saveAlbum(album: Album)
-    suspend fun saveAllAlbums(albums:List<Album>)
+    suspend fun saveAllAlbums(albums: List<Album>)
     suspend fun deleteAlbum(album: Album)
+    suspend fun updateAlbum(album: Album)
 }

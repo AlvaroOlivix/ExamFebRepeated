@@ -1,7 +1,9 @@
 package com.example.examfebrepeated.features.album.data.room
 
 import com.example.examfebrepeated.features.album.domain.model.Album
+import org.koin.core.annotation.Single
 
+@Single
 class LocalDbAlbumDataSource(private val albumDao: AlbumDao) {
 
     suspend fun getAlbumList(): List<Album> {
@@ -22,5 +24,9 @@ class LocalDbAlbumDataSource(private val albumDao: AlbumDao) {
 
     suspend fun deleteAlbum(album: Album) {
         albumDao.deleteAlbum(album.toEntity())
+    }
+
+    suspend fun updateAlbum(album: Album) {
+         albumDao.update(album.toEntity())
     }
 }

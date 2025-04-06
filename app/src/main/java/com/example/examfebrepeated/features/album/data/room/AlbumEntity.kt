@@ -14,5 +14,6 @@ data class AlbumEntity(
     @PrimaryKey @ColumnInfo(name = "id") val id: String,
     @ColumnInfo(name = "name") val name: String,
     @ColumnInfo(name="cards")val cards:List<Card>,
-    @ColumnInfo(name ="mushroomsAvailables")val mushroomsAvailables:List<Mushroom>
+    @ColumnInfo(name ="mushroomsAvailable")val mushroomsAvailable:List<Mushroom>,
+    @ColumnInfo(name="isFavorite")val isFavorite:Boolean
 )

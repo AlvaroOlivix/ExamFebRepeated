@@ -7,7 +7,8 @@ fun Album.toEntity(): AlbumEntity {
         id = this.id,
         name = this.name,
         cards = this.cards,
-        mushroomsAvailables = this.mushroomsAvailables
+        mushroomsAvailable = this.mushroomsAvailable,
+        isFavorite = this.isFavorite
     )
 }
 
@@ -16,6 +17,7 @@ fun AlbumEntity.toModel(): Album {
         id = this.id,
         name = this.name,
         cards = this.cards,
-        mushroomsAvailables = this.mushroomsAvailables
+        mushroomsAvailable = this.mushroomsAvailable,
+        isFavorite = this.isFavorite
     )
 }

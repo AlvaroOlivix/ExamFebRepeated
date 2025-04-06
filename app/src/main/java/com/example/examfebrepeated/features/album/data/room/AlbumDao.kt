@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
-import com.example.examfebrepeated.features.album.domain.model.Album
+import androidx.room.Update
 
 @Dao
 interface AlbumDao {
@@ -22,4 +22,7 @@ interface AlbumDao {
 
     @Delete
     suspend fun deleteAlbum(album: AlbumEntity)
+
+    @Update
+    suspend fun update(album: AlbumEntity)
 }

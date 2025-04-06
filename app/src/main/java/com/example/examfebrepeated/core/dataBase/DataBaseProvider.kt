@@ -2,6 +2,7 @@ package com.example.examfebrepeated.core.dataBase
 
 import android.content.Context
 import androidx.room.Room
+import org.koin.core.annotation.Single
 
 object DataBaseProvider {
     fun provideDataBase(context: Context): AlbumsDataBase {

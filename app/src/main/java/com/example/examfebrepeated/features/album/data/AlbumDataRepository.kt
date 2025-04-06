@@ -1,16 +1,34 @@
 package com.example.examfebrepeated.features.album.data
 
+import com.example.examfebrepeated.features.album.data.remote.MockDataSource
 import com.example.examfebrepeated.features.album.data.room.LocalDbAlbumDataSource
 import com.example.examfebrepeated.features.album.domain.AlbumRepository
 import com.example.examfebrepeated.features.album.domain.model.Album
+import org.koin.core.annotation.Single
 
-class AlbumDataRepository(private val localDbAlbumDataSource: LocalDbAlbumDataSource):AlbumRepository {
+@Single
+class AlbumDataRepository(
+    private val localDbAlbumDataSource: LocalDbAlbumDataSource, private val mock: MockDataSource
+) :
+    AlbumRepository {
     override suspend fun getAlbumList(): List<Album> {
-        return localDbAlbumDataSource.getAlbumList()
+        val localList = localDbAlbumDataSource.getAlbumList()
+        if (localList.isEmpty()) {
+            val remoteList = mock.getAlbums()
+            localDbAlbumDataSource.insertAlbumList(remoteList)
+        }
+        return localList
     }
 
     override suspend fun getAlbumById(albumId: String): Album? {
-        return localDbAlbumDataSource.getAlbumById(albumId)
+        val localAlbum = localDbAlbumDataSource.getAlbumById(albumId)
+        if (localAlbum == null) {
+            val remoteAlbum = mock.getById(albumId)
+            if (remoteAlbum != null) {
+                localDbAlbumDataSource.insertAlbum(remoteAlbum)
+            }
+        }
+        return localAlbum
     }
 
     override suspend fun saveAlbum(album: Album) {
@@ -23,5 +41,9 @@ class AlbumDataRepository(private val localDbAlbumDataSource: LocalDbAlbumDataSo
 
     override suspend fun deleteAlbum(album: Album) {
         localDbAlbumDataSource.deleteAlbum(album)
+    }
+
+    override suspend fun updateAlbum(album: Album){
+        localDbAlbumDataSource.updateAlbum(album)
     }
 }

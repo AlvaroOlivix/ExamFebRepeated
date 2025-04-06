@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kspCompiler)
+    alias(libs.plugins.safeArgs)
 }
 
 android {
@@ -34,6 +35,10 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -46,9 +51,22 @@ dependencies {
 
     //Propias
     implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
     ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
     implementation(libs.google.gson)
+
+    implementation(project.dependencies.platform(libs.koin.bom))
+    implementation(libs.koin.core)
+    implementation(libs.koin.android)
+    // Koin Annotations
+    implementation(libs.koin.annotations)
+    // Koin Annotations KSP Compiler
+    ksp(libs.koin.ksp.compiler)
+
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network.okhttp)
 
     //Test
     testImplementation(libs.junit)
